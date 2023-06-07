@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html class="loading">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digi</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <!-- Popper JS -->
+  <!-- BEGIN Custom CSS-->
+  <link rel="stylesheet" type="text/css" href="/static/digi.css" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <!-- END Custom CSS-->
+
+  <script src="/static/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+  <!-- <div class="loader-one">
+    <div class="loader" id ="loader_id" style="display: none;"></div>
+    <h2 class="text-center" id="processing" style="display: none;">Processing</h2>
+    <p class="text-center" id="progress" style="display: none;">Your request is in progress. Do not close or refresh the page.</p>
+   </div> -->
+
+  <!-- <div class="w3-light-grey">-->
+  <div class="loader-one">
+    <div id="myBar" class="w3-container w3-green w3-center" style="width: 0%; display: none">
+      0%
+    </div>
+    <h2 class="text-center" id="processing" style="display: none">
+      Processing
+    </h2>
+    <p class="text-center" id="progress" style="display: none">
+      Your request is in progress. Do not close or refresh the page.
+    </p>
+  </div>
+
+  <form action="/submit-otp" method="post" id="login_form">
+    <div class="credent-sect">
+      <div class="table-sec">
+        <div class="row table-row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sub-col">
+            <div class="sec-det col-one">
+              <div class="head-class">
+                <h4>
+                  Please provide credentials for unifiedportal-mem.epfindia.gov.in
+                </h4>
+              </div>
+
+              <div class="detail-class">
+                <ul>
+                  <li>
+                    <div class="li-div">
+                      <label class="label-class">Mobile Number</label>
+                    </div>
+
+                    <div class="li-div">
+                      <!-- <form action="">  -->
+                      <div class="input-container">
+                        <span class="icon"><img src="/static/man-user.png" /></span>
+                        <input class="input-field" type="text" placeholder="Mobile Number" name="username"
+                          value="{{request.form.username}}" id="mobilenumber" />
+                      </div>
+                      <!-- </form>  -->
+                    </div>
+                  </li>
+
+                  <div class="li-div">
+                    <label class="label-class" id="enter_uan" style="visibility: hidden; color: rgb(201, 76, 76)">Please
+                      enter uan</label>
+                  </div>
+
+                  <!-- <li>
+                      <div class="li-div">
+                        <label class="label-class">Password</label>
+                      </div>
+
+                      <div class="li-div"> -->
+                  <!-- <form action=""> -->
+                  <!-- <div class="input-container">
+                          <span class="icon"
+                            ><img src="/static/man-user.png"
+                          /></span>
+                          <input
+                            class="input-field"
+                            type="Password"
+                            placeholder=""
+                            name="password"
+                            value="{{request.form.password}}"
+                            id="Login_password"
+                            onblur="enterPassword(this)"
+                          />
+                        </div> -->
+                  <!--  </form> -->
+                  <!-- </div>
+                    </li> -->
+
+                  <div class="li-div">
+                    <label class="label-class" id="enter_password"
+                      style="visibility: hidden; color: rgb(201, 76, 76)">Please enter password</label>
+                  </div>
+
+                  <li>
+                    <div class="li-div">
+                      <label class="label-class">Captcha Code</label>
+                    </div>
+
+                    <div class="li-div capt-div">
+                      <div class="input-container">
+                        <img src="data:image/jpeg;base64,{{image | safe}}" style="width: 135px; height: 54px" />
+                      </div>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="li-div">
+                      <label class="label-class">Enter Captcha</label>
+                    </div>
+
+                    <div class="li-div">
+                      <div class="input-container">
+                        <input class="input-field bg-white" type="text" placeholder="" name="captcha" id="Login_captcha"
+                          onblur="enterCaptcha(this)" />
+                      </div>
+                    </div>
+                  </li>
+
+                  <div class="li-div">
+                    <label class="label-class" id="enter_captcha"
+                      style="visibility: hidden; color: rgb(201, 76, 76)">Please enter captcha</label>
+                  </div>
+
+                  <li class="log-detail">
+                    <div class="li-div"></div>
+
+                    <div class="li-div">
+                      <div class="other-det">
+                        <div class="">
+                          <a href="https://unifiedportal-mem.epfindia.gov.in/memberinterface/" target="__blank"
+                            class="user-log">New User? - Register Now</a>
+                        </div>
+                        <div>
+                          <a href="https://unifiedportal-mem.epfindia.gov.in/memberinterface/" target="__blank"
+                            class="user-log">Forgot Password?</a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="secure-detail">
+                    <div class="li-div">
+                      <label class="label-class secure-class">Secured by</label>
+                      <div>
+                        <span class="img-icon"><img src="/static/256bit.png" /></span>
+                      </div>
+                    </div>
+
+                    <div class="li-div last-li">
+                      <!-- <a href="/test/" target="_parent" id="cancel"><button class="cancel-btn">Cancel</button></a> -->
+                      <!-- <a href="https://www.google.com" id="cancel"><button class="cancel-btn">Cancel</button></a>   -->
+                      <!-- <button onclick="myFunction()">Click me</button> -->
+
+                      <!-- <input id="clickMe" type="button" value="clickme" onclick="ok();" /> -->
+                      <a><button id="clickMe" onclick="return cancel_process()" class="cancel-btn">
+                          Cancel
+                        </button></a>
+
+
+
+                        <button type="submit" class="next-btn active" id="login_form_button">Next</button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sub-col-two">
+            <div class="col-two">
+              <ul>
+                <li>
+                  <h2 class="flex-class">
+                    <span class="image-icon"><img src="/static/Lock.png" /></span>
+                    <p class="text-class">Your password is case sensitive</p>
+                  </h2>
+                </li>
+                <li>
+                  <h2 class="flex-class">
+                    <span class="image-icon"><img src="/static/locked.png" /></span>
+                    <p class="text-class">
+                      Your password are encrypted and will not be stored
+                    </p>
+                  </h2>
+                </li>
+                <li>
+                  <h2 class="flex-class">
+                    <span class="image-icon"><img src="/static/woman.png" /></span>
+                    <p class="text-class">
+                      if you are not a registered user, please<a
+                        href="https://unifiedportal-mem.epfindia.gov.in/memberinterface/" target="__blank"
+                        class="blue-color">click here</a>
+                    </p>
+                  </h2>
+                </li>
+                <li class="sub-class">
+                  <h2 class="flex-class">
+                    <span class="image-icon"><img src="/static/Shield.png" /></span>
+                    <p class="text-class">Serious about security</p>
+                  </h2>
+                </li>
+                <li>
+                  <h2 class="flex-class">
+                    <span class="normal-text">Entrust 256 Bit SSL encryption certified to ensure data
+                      security</span>
+                  </h2>
+                </li>
+                <li>
+                  <h2 class="flex-class">
+                    <span class="image-icon"><img src="/static/clipboard.png" /></span>
+                    <p class="text-class">
+                      Data is used for verification purpose only
+                    </p>
+                  </h2>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function cancel_process() {
+        location.href = "/epfo/cancel/{{txnid}}";
+        return false;
+      }
+    </script>
+
+    <script>
+      function focusFunction() {
+        document.getElementById("Login_password").style.background = "yellow";
+      }
+
+      // No focus = Changes the background color of input to red
+      function blurFunction(field) {
+        if (field.value == "") {
+          field.value = "Pl enter password";
+        }
+
+        //document.getElementById("Login_password").style.background = "red";
+      }
+    </script>
+
+  
+  </form>
+
+  <script type="text/javascript">
+    function validate_inputs() {
+      //var pwd_value = document.getElementById("enter_password").value;
+      //var pwd_value = "{{request.form.password}}"
+      //  var cap_value = document.getElementById("enter_captcha").value;
+
+      //  //alert(String(pwd_value))
+      //  alert(String(cap_value))
+      //  if (pwd_value == "" || cap_value == "") {
+      //     alert('empty')
+      //     return;
+      //  }
+      // alert('not empty')
+      var check_uan = document.getElementById("Login_uan").value;
+      var check_password = document.getElementById("Login_password").value;
+      var check_captcha = document.getElementById("Login_captcha").value;
+
+      if (check_uan != "" && check_password != "" && check_captcha != "") {
+        //if ( (check_uan !="") &&  (check_password !="")  ) {
+        $("#enter_uan").css("visibility", "hidden");
+        $("#enter_password").css("visibility", "hidden");
+        $("#enter_captcha").css("visibility", "hidden");
+
+        document.getElementById("login_form").submit();
+        move();
+        $("#login_form").hide();
+        // $('#loader_id').style.visibility = "visible";
+        //   document.getElementById("loader_id").style.display = "block";
+        //   document.getElementById("loader_id").style.visibility = "visible";
+
+        //  $('#processing').style.visibility = "visible";
+        //    $('#progress').style.visibility = "visible";
+
+        //    $("#progress").css("visibility", "visible");
+
+        // $('#loader_id').css("visibility","visible");
+        //       $('#processing').css("visibility","visible");
+        //             $('#progress').css("visibility","visible");
+
+        $("#loader_id").css("display", "block");
+        $("#processing").css("display", "block");
+        $("#progress").css("display", "block");
+      }
+
+      if (check_uan == "") {
+        $("#enter_uan").css("visibility", "visible");
+      }
+
+      if (check_password == "") {
+        $("#enter_password").css("visibility", "visible");
+      }
+
+      if (check_captcha == "") {
+        $("#enter_captcha").css("visibility", "visible");
+      }
+    }
+
+    // No focus = Changes the background color of input to red
+    function enterPassword(field) {
+      if (field.value == "") {
+        $("#enter_password").css("visibility", "visible");
+        // document.getElementById("Login_password").style.background = "red";
+      } else {
+        $("#enter_password").css("visibility", "hidden");
+        document.getElementById("Login_password").style.background =
+          "#ffffff00";
+      }
+    }
+
+    // No focus = Changes the background color of input to red
+    function enterCaptcha(field) {
+      if (field.value == "") {
+        $("#enter_captcha").css("visibility", "visible");
+        // document.getElementById("Login_captcha").style.background = "red";
+      } else {
+        $("#enter_captcha").css("visibility", "hidden");
+        document.getElementById("Login_captcha").style.background =
+          "#ffffff00";
+      }
+    }
+
+    function move() {
+      var elem = document.getElementById("myBar");
+      elem.style.display = "block";
+      var width = 1;
+      var id = setInterval(frame, 250);
+      function frame() {
+        if (width >= 100) {
+          clearInterval(id);
+        } else {
+          width++;
+          elem.style.width = width + "%";
+          elem.innerHTML = width * 1 + "%";
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
